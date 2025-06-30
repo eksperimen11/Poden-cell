@@ -768,8 +768,18 @@ function submitOrder() {
     const nomor = document.getElementById('userNumber').value;
     const jadwal = document.getElementById('jadwalCOD').value;
 
+     if (nama.length < 4 || !/^[a-zA-Z\s.']{4,50}$/.test(nama)) {
+    alert("❌ Nama wajib huruf, minimal 4 karakter.");
+    return;
+     }
+
     if (!/^08[0-9]{8,13}$/.test(nomor)) {
         alert("❌ Nomor tidak valid. Harus diawali 08 dan cukup panjang.");
+        return;
+    }
+
+    if (jadwal.length < 5) {
+        alert("❌ Jadwal COD terlalu pendek. Contoh: 'Hari ini jam 5 sore'");
         return;
     }
 
@@ -778,13 +788,12 @@ function submitOrder() {
         return;
     }
 
-    // isi form tersembunyi
     document.getElementById("formNama").value = nama;
     document.getElementById("formNomor").value = nomor;
     document.getElementById("formPaket").value = paketDipilih;
     document.getElementById("formJadwal").value = jadwal;
 
-    // kirim ke Google Apps Script
+    
     document.getElementById("orderForm").submit();
 
     // (opsional) kirim juga ke Telegram
